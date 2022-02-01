@@ -5,11 +5,12 @@ from flask import Flask, request, redirect, session,  render_template, url_for
 import os
 import sqlite3
 from modules.db_connection import get, post
-from datetime import timedelta
+from modules.get_time import get_time
+import datetime
 
 cht = Flask(__name__)
 cht.secret_key = os.urandom(24)
-cht.permanent_session_lifetime = timedelta(minutes=5)
+cht.permanent_session_lifetime = datetime.timedelta(minutes=5)
 
 usernames = [x[0] for x in get()]
 emails = [x[1] for x in get()]
@@ -19,7 +20,7 @@ passwords = [x[2] for x in get()]
 def index_page():
     if "user" in session:
         loggined = True
-        return render_template("index.html", log_status=loggined, user_status = session["user"])
+        return render_template("index.html", log_status=loggined, user_status = session["user"], posts = show_posts)
     else:
         loggined = False
         return render_template("index.html", log_status=loggined, user_status = None)
@@ -32,7 +33,7 @@ def register_page():
     passwords = [x[2] for x in get()]
     if request.method == "GET":
         if "user" in session: return redirect(url_for("index_page"))
-        else: return render_template("register.html")
+        else: return render_template("register.html", log_status = False)
     else:
         username = request.form.get("username")
         password = request.form.get("password")
@@ -74,4 +75,4 @@ def logout_page():
         loggined = False
     return redirect(url_for("login_page"))
     
-cht.run()
+cht.run(debug=True)

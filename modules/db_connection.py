@@ -1,7 +1,7 @@
 # 0 - nickname / 1- email / 2- password
 import sqlite3
 def get():
-    SQL_PATH = "C://Users//echtr//Desktop//cht//database//database.db"
+    SQL_PATH = "C://Users//echtr//Desktop//cht//database//db_users.db"
     connect = sqlite3.connect(SQL_PATH)
     cursor = connect.cursor()
     cursor.execute("SELECT * FROM users")
@@ -10,7 +10,7 @@ def get():
     return rows
 
 def post(username, email, password):
-    SQL_PATH = "C://Users//echtr//Desktop//cht//database//database.db"
+    SQL_PATH = "C://Users//echtr//Desktop//cht//database//db_users.db"
     connect = sqlite3.connect(SQL_PATH)
     cursor = connect.cursor()
     cursor.execute(f"""INSERT INTO users VALUES

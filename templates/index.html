@@ -48,5 +48,21 @@
               </div>
             </div>
           </nav>
+          {% if log_status == True %}
+            {% block content3 %}
+            <div class="orsomething" style="margin-left: 5%;">
+              <button class="btn btn-success">+ Create Post</button><br><br>
+              <div class="col" style="font-size: 110%;"> <a href="#">New</a> | <a href="#">Top</a> | <a href="#">Hot</a></div>
+              <br>
+              {% for i in range %}
+              <div class="col-9 bg-light border" style="padding: 2%;">
+                <h4>Title</h4>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat suscipit sint necessitatibus dolore perspiciatis maiores et, natus, deleniti voluptatem magnam amet repudiandae provident neque laboriosam delectus sequi quod dolor ea!</p>
+                <span class="float-end text-secondary">27 wednesday 2022 - Efe İçke </span>
+              </div>
+            </div>
+            
+            {% endblock content3 %}
+          {% endif %}
     </body>
 </html>
