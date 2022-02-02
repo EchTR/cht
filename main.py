@@ -6,6 +6,7 @@ import os
 import sqlite3
 from modules.db_connection import get, post
 from modules.get_time import get_time
+from modules.get_posts import get_posts
 import datetime
 
 cht = Flask(__name__)
@@ -20,6 +21,7 @@ passwords = [x[2] for x in get()]
 def index_page():
     if "user" in session:
         loggined = True
+        show_posts = get_posts("new")
         return render_template("index.html", log_status=loggined, user_status = session["user"], posts = show_posts)
     else:
         loggined = False
@@ -68,11 +70,22 @@ def login_page():
                 return "wrong username or password"
         else:
             return "we cant found your username in our database. please check!"
+
 @cht.route("/logout")
 def logout_page(): 
     if "user" in session:
         session.pop("user", None)
         loggined = False
     return redirect(url_for("login_page"))
-    
+
+@cht.route("/myposts")
+def myposts_page():
+    if "user" in session:
+        user_posts = get_posts("new", user = str(session["user"][0]))
+        up_length = len(user_posts)
+        print(user_posts)
+        print(up_length)
+        return render_template("myposts.html", posts = user_posts, upl = up_length, user_status = session["user"], log_status=True)
+    else:
+        return redirect(url_for("login_page"))
 cht.run(debug=True)
