@@ -1,4 +1,3 @@
-
 setInterval(function(){
 
     if ($("#username").val().length >= 5 && $("#password").val().length >= 8){
@@ -8,4 +7,3 @@ setInterval(function(){
     }
     console.log($("#username").length)
 }, 100)
-

@@ -51,17 +51,22 @@
           {% if log_status == True %}
             {% block content3 %}
             <div class="orsomething" style="margin-left: 5%;">
-              <button class="btn btn-success" onclick="window.location.href='createpost'">+ Create Post</button><br><br>
-              <div class="col" style="font-size: 110%;"> <a href="#">New</a> | <a href="#" disabled>Top</a> | <a href="#">Hot</a></div>
-              <br>
-              {% for post in posts %}
-              <div class="col-9 bg-light border" style="padding: 2%;">
-                <h4>{{ post[1] }}</h4>
-                <p>{{ post[2] }}</p>
-                <span class="float-end text-secondary">{{ post[0] }} - {{ post[5]}} </span>
+              <div class="row">
+                <div class="col">
+                  <h3>Create Post</h3>
+                </div>
               </div>
-            
-            {% endfor %}
+              <form action="createpost" method="post">
+                <div class="row">
+                  <div class="col-3"><label for="p_title">Post Title: </label> <input type="text" name="p_title" id="p_title" required></div>
+                </div>
+                <div class="row">
+                  <div class="col-3"><label for="p_text">Post Text: </label> <textarea style="resize: none;" name="p_text" id="p_text" cols="50" rows="6" required maxlength="300"></textarea></div>
+                </div>
+                <div class="row">
+                  <div class="col-3"><input type="submit" class = "btn btn-primary" value="Create!" style="margin-top: 32px;"></div>
+                </div>
+              </form>
           </div>
             {%  endblock content3 %}
           {% endif %}

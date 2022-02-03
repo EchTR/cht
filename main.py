@@ -1,4 +1,5 @@
 # github.com/echtr
+#from crypt import methods
 import logging
 from cv2 import log
 from flask import Flask, request, redirect, session,  render_template, url_for
@@ -7,6 +8,7 @@ import sqlite3
 from modules.db_connection import get, post
 from modules.get_time import get_time
 from modules.get_posts import get_posts
+from modules.create_post import create_post
 import datetime
 
 cht = Flask(__name__)
@@ -88,4 +90,18 @@ def myposts_page():
         return render_template("myposts.html", posts = user_posts, upl = up_length, user_status = session["user"], log_status=True)
     else:
         return redirect(url_for("login_page"))
+@cht.route("/createpost", methods=["GET", "POST"])
+def createpost_page():
+    if request.method == "GET":
+        if "user" in session:
+            return render_template("createpost.html", user_status = session["user"], log_status=True)
+        else: return redirect(url_for("login_page"))
+    else:
+        post_title = request.form.get("p_title")
+        post_text = request.form.get("p_text")
+        post_date = get_time()
+        post_author = session["user"][0]
+        print(session["user"][0])
+        create_post(post_date, post_title, post_text, post_author)
+        return redirect(url_for("myposts_page"))
 cht.run(debug=True)

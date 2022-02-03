@@ -51,9 +51,12 @@
           {% if log_status == True %}
             {% block content3 %}
             <div class="orsomething" style="margin-left: 5%;">
-              <button class="btn btn-success">+ Create Post</button><br><br>
+              <button class="btn btn-success"  onclick="window.location.href='createpost'">+ Create Post</button><br><br>
               <div class="col" style="font-size: 110%;"> <a href="#">New</a> | <a href="#" disabled>Top</a> | <a href="#">Hot</a></div>
               <br>
+              {% if posts|length == 0%}
+                <h2>You are not created a post.</h2>
+              {% endif %}
               {% for post in posts %}
               <div class="col-9 bg-light border" style="padding: 2%;">
                 <h4>{{ post[1] }}</h4>
